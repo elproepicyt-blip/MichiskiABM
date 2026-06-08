@@ -1,4 +1,4 @@
-const API = "/functions/usuarios.js";
+const API = "/api/usuarios";
 
 async function cargarUsuarios(){
 
