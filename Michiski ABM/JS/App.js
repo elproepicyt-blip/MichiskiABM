@@ -1,32 +1,33 @@
-const API = "/api/usuarios";
+const API = "/api/articulos";
 
-async function cargarUsuarios(){
+async function cargarArticulos(){
 
     const res = await fetch(API);
 
-    const usuarios = await res.json();
+    const articulos = await res.json();
 
-    const contenedor = document.getElementById("usuarios");
+    const contenedor = document.getElementById("articulos");
 
     contenedor.innerHTML = "";
 
-    usuarios.forEach(usuario => {
+    articulos.forEach(articulo => {
 
         contenedor.innerHTML += `
         
         <div class="card">
 
-            <div>
-                ${usuario.nombre}
-            </div>
+            <span>${articulo.descripcion}</span>
 
             <div class="acciones">
 
-                <button onclick="editarUsuario(${usuario.id}, '${usuario.nombre}')">
+                <button onclick="editarArticulo(
+                    ${articulo.codigo},
+                    '${articulo.descripcion.replace(/'/g,"\\'")}'
+                )">
                     Editar
                 </button>
 
-                <button onclick="eliminarUsuario(${usuario.id})">
+                <button onclick="eliminarArticulo(${articulo.codigo})">
                     Eliminar
                 </button>
 
@@ -37,68 +38,72 @@ async function cargarUsuarios(){
     });
 }
 
-async function guardarUsuario(){
+async function guardarArticulo(){
 
-    const id = document.getElementById("usuarioId").value;
+    const codigo = document.getElementById("codigo").value;
 
-    const nombre = document.getElementById("nombre").value;
+    const descripcion = document.getElementById("descripcion").value;
 
-    if(nombre.trim() === ""){
+    if(descripcion.trim() === ""){
         return;
     }
 
-    if(id){
+    if(codigo){
 
         await fetch(API, {
-            method:"PUT",
-            headers:{
+            method: "PUT",
+            headers: {
                 "Content-Type":"application/json"
             },
-            body:JSON.stringify({
-                id,
-                nombre
+            body: JSON.stringify({
+                codigo,
+                descripcion
             })
         });
 
-    }else{
+    } else {
 
         await fetch(API, {
-            method:"POST",
-            headers:{
+            method: "POST",
+            headers: {
                 "Content-Type":"application/json"
             },
-            body:JSON.stringify({
-                nombre
+            body: JSON.stringify({
+                descripcion
             })
         });
     }
 
     limpiarFormulario();
 
-    cargarUsuarios();
+    cargarArticulos();
 }
 
-function editarUsuario(id, nombre){
+function editarArticulo(codigo, descripcion){
 
-    document.getElementById("usuarioId").value = id;
+    document.getElementById("codigo").value = codigo;
 
-    document.getElementById("nombre").value = nombre;
+    document.getElementById("descripcion").value = descripcion;
 }
 
-async function eliminarUsuario(id){
+async function eliminarArticulo(codigo){
 
-    await fetch(API + "?id=" + id, {
-        method:"DELETE"
+    if(!confirm("¿Eliminar artículo?")){
+        return;
+    }
+
+    await fetch(API + "?codigo=" + codigo, {
+        method: "DELETE"
     });
 
-    cargarUsuarios();
+    cargarArticulos();
 }
 
 function limpiarFormulario(){
 
-    document.getElementById("usuarioId").value = "";
+    document.getElementById("codigo").value = "";
 
-    document.getElementById("nombre").value = "";
+    document.getElementById("descripcion").value = "";
 }
 
-cargarUsuarios();
+cargarArticulos();
