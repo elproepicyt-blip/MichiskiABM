@@ -1,0 +1,222 @@
+/* ==========================
+   RESET
+========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* ==========================
+   BODY
+========================== */
+
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background:#f5f7fa;
+    color:#2d3436;
+    min-height:100vh;
+    padding:40px 20px;
+}
+
+/* ==========================
+   CONTENEDOR
+========================== */
+
+.contenedor{
+    max-width:1000px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:16px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+/* ==========================
+   TITULO
+========================== */
+
+h1{
+    text-align:center;
+    margin-bottom:15px;
+    font-size:2rem;
+    font-weight:600;
+}
+
+/* ==========================
+   LINK VOLVER
+========================== */
+
+a{
+    display:inline-block;
+    text-decoration:none;
+    color:#2563eb;
+    font-weight:500;
+    margin-bottom:25px;
+    transition:.2s;
+}
+
+a:hover{
+    opacity:.75;
+}
+
+/* ==========================
+   FORMULARIO
+========================== */
+
+.formulario{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap:12px;
+    margin-bottom:30px;
+}
+
+/* ==========================
+   INPUTS
+========================== */
+
+.formulario input{
+    padding:12px;
+    border:1px solid #dcdde1;
+    border-radius:10px;
+    outline:none;
+    font-size:14px;
+    transition:.2s;
+}
+
+.formulario input:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 3px rgba(37,99,235,.15);
+}
+
+/* ==========================
+   BOTON GUARDAR
+========================== */
+
+.formulario button{
+    border:none;
+    border-radius:10px;
+    padding:12px 20px;
+    background:#2563eb;
+    color:white;
+    cursor:pointer;
+    font-weight:600;
+    transition:.2s;
+}
+
+.formulario button:hover{
+    transform:translateY(-1px);
+    opacity:.9;
+}
+
+/* ==========================
+   LISTA DE PRECIOS
+========================== */
+
+#precios{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+/* ==========================
+   TARJETAS
+========================== */
+
+.card{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+    padding:18px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    transition:.2s;
+}
+
+.card:hover{
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+/* ==========================
+   INFORMACION
+========================== */
+
+.card-info{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    font-size:14px;
+}
+
+.card-info strong{
+    color:#111827;
+}
+
+/* ==========================
+   BOTONES ACCIONES
+========================== */
+
+.acciones{
+    display:flex;
+    gap:10px;
+}
+
+.acciones button{
+    border:none;
+    border-radius:8px;
+    padding:8px 14px;
+    cursor:pointer;
+    transition:.2s;
+    font-weight:500;
+}
+
+/* Editar */
+
+.acciones button:first-child{
+    background:#facc15;
+    color:#111827;
+}
+
+.acciones button:first-child:hover{
+    opacity:.85;
+}
+
+/* Eliminar */
+
+.acciones button:last-child{
+    background:#ef4444;
+    color:white;
+}
+
+.acciones button:last-child:hover{
+    opacity:.85;
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media(max-width:768px){
+
+    .formulario{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
+    }
+
+    .acciones{
+        width:100%;
+    }
+
+    .acciones button{
+        flex:1;
+    }
+}
