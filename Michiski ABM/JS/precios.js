@@ -126,3 +126,26 @@ function limpiarFormulario(){
 }
 
 cargarPrecios();
+
+contenedor.innerHTML += `
+<div class="card">
+
+    <div class="card-info">
+        <span><strong>ID:</strong> ${precio.id}</span>
+        <span><strong>Producto:</strong> ${precio.cod_producto}</span>
+        <span><strong>Fecha:</strong> ${precio.fecha}</span>
+        <span><strong>Precio:</strong> $${precio.precio}</span>
+    </div>
+
+    <div class="acciones">
+        <button onclick="editarPrecio(${precio.id}, ${precio.cod_producto}, '${precio.fecha}', ${precio.precio})">
+            Editar
+        </button>
+
+        <button onclick="eliminarPrecio(${precio.id})">
+            Eliminar
+        </button>
+    </div>
+
+</div>
+`;
