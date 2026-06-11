@@ -3,31 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABM Usuarios</title>
+    <title>ABM de Artículos</title>
     <link rel="stylesheet" href="CSS/Style.css">
 </head>
 <body>
 
     <div class="contenedor">
 
-        <h1>ABM de Usuarios</h1>
+        <h1>ABM de Artículos</h1>
 
         <div class="formulario">
 
-            <input type="hidden" id="usuarioId">
+            <input type="hidden" id="codigo">
 
-            <input type="text" id="nombre" placeholder="Nombre">
+            <input
+                type="text"
+                id="descripcion"
+                placeholder="Descripción del artículo"
+            >
 
-            <button onclick="guardarUsuario()">
+            <button onclick="guardarArticulo()">
                 Guardar
             </button>
 
         </div>
 
-        <div id="usuarios" class="usuarios"></div>
+        <div id="articulos"></div>
 
     </div>
 
     <script src="JS/App.js"></script>
+
 </body>
 </html>
