@@ -1,4 +1,4 @@
-const API = "/api/ventas";
+const API = "../functions/api/ventas";
 
 async function cargarProductos(){
 
