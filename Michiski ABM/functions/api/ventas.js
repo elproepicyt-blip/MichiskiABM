@@ -14,7 +14,7 @@ export async function onRequest(context){
             FROM articulos a
             INNER JOIN precios p
                 ON p.cod_producto = a.codigo
-            ORDER BY a.codigo
+            ORDER BY a.descripcion
         `).all();
 
         return Response.json(results);
@@ -24,14 +24,19 @@ export async function onRequest(context){
 
         const data = await request.json();
 
-        return Response.json({
-            mensaje: "Venta registrada",
-            articulo: data.codigo,
-            cantidad: data.cantidad
-        });
+        const codigo = data.codigo;
+
+        const cantidad = data.cantidad;
+
+        return new Response(
+            `Venta realizada.
+             Producto: ${codigo}
+             Cantidad: ${cantidad}`
+        );
     }
 
-    return new Response("Método no permitido", {
-        status: 405
-    });
+    return new Response(
+        "Método no permitido",
+        { status:405 }
+    );
 }
