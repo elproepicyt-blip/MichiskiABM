@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ventas</title>
-    <link rel="stylesheet" href="../CSS/Style.css">
+    <title>Venta de Artículos</title>
+    <link rel="stylesheet" href="CSS/Style.css">
 </head>
 <body>
 
@@ -12,17 +12,48 @@
 
     <h1>Venta de Artículos</h1>
 
-    <nav>
-        <a href="../index.html">Artículos</a>
-        |
-        <a href="../Precios/index.html">Precios</a>
-    </nav>
+    <div class="formulario">
 
-    <div id="productos"></div>
+        <label for="producto">
+            Producto
+        </label>
+
+        <select id="producto">
+            <option value="">
+                Seleccione un producto
+            </option>
+        </select>
+
+        <label>
+            Precio
+        </label>
+
+        <input
+            type="text"
+            id="precio"
+            readonly
+        >
+
+        <label>
+            Cantidad
+        </label>
+
+        <input
+            type="number"
+            id="cantidad"
+            min="1"
+            value="1"
+        >
+
+        <button onclick="vender()">
+            Vender
+        </button>
+
+    </div>
 
 </div>
 
-<script src="../JS/Ventas.js"></script>
+<script src="JS/Ventas.js"></script>
 
 </body>
 </html>
