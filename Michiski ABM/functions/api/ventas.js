@@ -19,22 +19,62 @@ export async function onRequest(context){
 
         return Response.json(results);
     }
-
     if(request.method === "POST"){
 
         const data = await request.json();
 
-        const codigo = data.codigo;
+        const codigo = parseInt(data.codigo);
 
-        const cantidad = data.cantidad;
+        const cantidad = parseInt(data.cantidad);
+
+    // Buscar precio del producto
+
+        const { results } = await DB.prepare(`
+            SELECT precio
+            FROM precios
+            WHERE cod_producto = ?
+            ORDER BY fecha DESC
+            LIMIT 1
+            `)
+            .bind(codigo)
+            .all();
+
+        if(results.length === 0){
+
+            return new Response(
+                "No se encontró precio para el producto",
+                { status: 400 }
+                );
+        }
+
+        const precio_unitario = results[0].precio;
+
+        const total = precio_unitario * cantidad;
+
+    // Guardar venta
+
+        await DB.prepare(`
+            INSERT INTO ventas
+            (
+                cod_producto,
+                cantidad,
+                precio_unitario,
+                total
+            )
+            VALUES (?, ?, ?, ?)
+        `)
+        .bind(
+            codigo,
+            cantidad,
+            precio_unitario,
+            total
+        )
+        .run();
 
         return new Response(
-            `Venta realizada.
-             Producto: ${codigo}
-             Cantidad: ${cantidad}`
+            "Venta registrada correctamente"
         );
     }
-
     return new Response(
         "Método no permitido",
         { status:405 }
