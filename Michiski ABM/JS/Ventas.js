@@ -1,74 +1,71 @@
 const API = "../functions/api/ventas";
 
+let productos = [];
+
 async function cargarProductos(){
 
     const res = await fetch(API);
 
-    const productos = await res.json();
+    productos = await res.json();
 
-    const contenedor = document.getElementById("productos");
-
-    contenedor.innerHTML = "";
+    const combo = document.getElementById("producto");
 
     productos.forEach(producto => {
 
-        contenedor.innerHTML += `
-        
-        <div class="card">
-
-            <div class="card-info">
-
-                <h3>${producto.descripcion}</h3>
-
-                <p>
-                    Precio: $${producto.precio}
-                </p>
-
-            </div>
-
-            <div class="acciones">
-
-                <input
-                    type="number"
-                    min="1"
-                    value="1"
-                    id="cant_${producto.codigo}"
-                >
-
-                <button onclick="vender(${producto.codigo})">
-                    Vender
-                </button>
-
-            </div>
-
-        </div>
+        combo.innerHTML += `
+            <option value="${producto.codigo}">
+                ${producto.descripcion}
+            </option>
         `;
     });
 }
 
-async function vender(codigo){
+document
+.getElementById("producto")
+.addEventListener("change", function(){
 
-    const cantidad = document.getElementById(
-        `cant_${codigo}`
-    ).value;
+    const codigo = Number(this.value);
 
-    const res = await fetch(API, {
+    const producto = productos.find(
+        p => p.codigo === codigo
+    );
 
-        method: "POST",
+    document.getElementById("precio").value =
+        producto ? producto.precio : "";
+});
 
-        headers: {
+async function vender(){
+
+    const codigo =
+        document.getElementById("producto").value;
+
+    const cantidad =
+        document.getElementById("cantidad").value;
+
+    if(!codigo){
+
+        alert("Seleccione un producto");
+
+        return;
+    }
+
+    const res = await fetch(API,{
+
+        method:"POST",
+
+        headers:{
             "Content-Type":"application/json"
         },
 
-        body: JSON.stringify({
+        body:JSON.stringify({
             codigo,
             cantidad
         })
     });
 
-    const resultado = await res.json();
+    const resultado = await res.text();
 
-    alert(resultado.mensaje);
+    alert(resultado);
 }
 
 cargarProductos();
