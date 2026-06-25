@@ -46,12 +46,36 @@ export async function onRequest(context){
                 { status: 400 }
                 );
         }
-
         const precio_unitario = results[0].precio;
 
         const total = precio_unitario * cantidad;
 
-    // Guardar venta
+// Intentar descontar stock (operación atómica)
+
+        const resultado = await DB.prepare(`
+            UPDATE stock
+            SET cantidad = cantidad - ?
+            WHERE cod_producto = ?
+            AND cantidad >= ?
+        `)
+        .bind(
+            cantidad,
+            codigo,
+            cantidad
+        )
+        .run();
+
+// Si no modificó ninguna fila, no había stock suficiente
+
+        if(resultado.meta.changes === 0){
+
+            return new Response(
+                "Stock insuficiente",
+                { status:400 }
+            );    
+        }
+
+// Registrar la venta
 
         await DB.prepare(`
             INSERT INTO ventas
