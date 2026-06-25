@@ -1,4 +1,4 @@
-const API = "../functions/api/ventas";
+const API = "functions/api/ventas";
 
 let productos = [];
 
